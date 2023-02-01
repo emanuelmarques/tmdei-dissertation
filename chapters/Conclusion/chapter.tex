@@ -1,0 +1,30 @@
+\chapter{Conclusion} % Main chapter title
+\label{chap:Conclusion}
+In the final chapter of this dissertation, it is made a critical balance of the project as a whole. The objectives that were successfully fulfilled, the ones that were carried over a second version, the results and future work. The chapter is divided into two sections. The first is focused in approaching the achievements and results of the project. It will be discussed the implemented requirements, the attained objectives and the overall results. In the second section, it is presented the points that passed to a second version of the platform, an overview of possible improvements and enhancements for the growth of the platform. These recommendations aim to make the platform robust and maintainable enough to be a production level product.
+
+\section{Achievements and Results}
+The main objective of this thesis was to create a solution to the existent need of a platform that supports e-commerce applied to services where there is a logistical operation for it to be fulfilled. There were several requirements in terms of functionalities and technological challenges which aimed for the solution to be maintainable, dynamic and that supported multiple service providers if needed. The research made showed that there are similar problems that that already have an implemented solution (Uber Eats) and the analysis of its operational implementation helped to understand how our problem could be solved.
+
+\par
+To solve the problem, a prototype was developed that responds to the needs that were described in the chapter \ref{sec:chap1_problem_statement}. It provides the main functionalities needed to have the platform running, like allowing the management of service providers and their services, the management o couriers and the possibility to place and process an order in an easy and intuitive way. The developed solution uses a micro-services architecture allowing its growth in the future and facilitating the development by different people/teams. The APIs have a \textit{Swagger} page where it is possible to check its endpoints, the arguments, the response body, the error codes and to make a direct request to the \gls{API}. 
+\par
+The biggest challenge in the design of the platform was to design the best architecture for the platform. It was needed to decide which services made sense to use and which made not. The outcome was an architecture with two web applications, two \gls{API}s, four services, each one with its own database, all of the communicating seamlessly. Furthermore, the usage of an external payments provider also proved to be a challenge, since each third-party provider has its own rules that one needs to follow in order to integrate with it.
+
+\par
+In terms of quality, the platform was evaluated in two different ways. The first one was applying the \gls{QEF} model to the final version. This evaluation had a result of 95\% which is 5\% above the objective that was initially stated. These results proved that the requirements of the project were completed almost entirely. The second evaluation was to use \textit{Codacy} to verify the code quality of the platform components. This evaluation also met the objectives, reaching the B grade from a scale F-A, being A the best grade, and F the worst. To get this grade it was needed a big attention to detail in terms of code quality. 
+\par 
+The results of the surveys made to possible final customers and service providers also proved the viability of this platform. The first one proved that customers are used to how e-commerce platforms work and are willing to use an e-commerce platform for service provision. The second one, highlighted some improvements that are to be done in the back-office app, but, nevertheless, also had very positive results, proving that this kind of solution can be used for service provision management.
+\par
+Lastly, there is still some limitations before using the platform in production. It should go through a beta testing phase where real service providers, with real services and real couriers were added to the platform. This will almost certainly raise issues that were not thought during the development of the project. One can say that no application/feature is really tested until it reaches the production environment, since it is very common to find things that were not discussed before.
+
+\section{Future Work}
+
+In the movie \textit{The Social Network}, where the development of Facebook is depicted, it is said that \textit{"a software product is never finished. The way fashion is never finished"}(adapted). Despite being a movie, the sentence is very much real. No software product is ever finished since there is always something to improve. And even if there is not, as the world changes, our code also needs to change.
+\par
+This platform is no exception to this rule. There is still room for improvements in the existent features. There are still three features that were not developed in the first version. The user interfaces should also be a target of improvements both visually, where they could be redesigned to provide a unique interface that characterizes the brand, and in terms of usability, where \gls{UX} studies should be done to understand what is the best layout for the users of the platform
+\par
+The platform could also make use of a messaging service, specially for changes that happen to the order. The notification of customers about the progress of their orders, of service providers when there are new orders and couriers about orders ready for pickup are examples of use cases where these technologies could fit very easily.
+\par
+The platform could also use a system of ticketing for issues that may happen, therefore creating a customer service team that aimed to help the customers for problems they may have.
+\par
+Lastly, the platform could also integrate with billing software to facilitate the service providers' billing and tax calculations.

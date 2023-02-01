@@ -1,0 +1,131 @@
+\chapter{Analysis of the Existent Solutions} % Main chapter title
+\label{chap:existent_solutions_comparison}
+After the identification of the functional and non-functional requirements of this project, in the previous chapter, it is necessary to have a better understanding about which of the architectures and technologies, identified in the section \ref{sec:StateOfTheArt_Technology}, are the best choice to be used in the context of this dissertation. It is important to perceive the difference between each of them and compare its pros and cons. In this chapter, the advantages and disadvantages of using each of the technologies or architectures in the context of the project of this thesis.
+
+
+\section{Architectural Approaches}
+\label{sub:architectural_approaches}
+The first topic to be discussed, is also one of the first topic to discuss when developing a new project from scratch. The architecture of a system is like the skeleton a human being. It sustains the whole body while actually doing nothing by itself. A clear definition of the architecture that will be used in the system may prevent many problems since it provides a clear vision of the system as a whole. 
+\par
+In the section \ref{sub:StateOfTheArt_Technology_Architecture}, a few architectures were presented to the reader. In this section, the best and the worst of each of the architectures will be presented and then compared using \gls{CBAM}. Developed by the \gls{SEI}, this method is an "architecture-centric method for analyzing the costs, benefits and schedule implications of architectural decisions" \parencite{scenarioBasedArchEvaluation}.
+
+\subsection{Micro-Services}
+Micro-services, as was already mentioned in section \ref{sub:StateOfTheArt_Architectures_microservices}, micro-services architecture is a architectural style where applications are broken in autonomous "small pieces", the so called services, with a very well defined responsibility. 
+\par
+One of the biggest advantages of the micro-services architecture is that each service is independent of the others. It is possible to scale or deploy just one service at a time without affecting the others. This facilitates the development because, since the services are independent of each other, they can be developed in different languages. However, the communication protocol must remain the common. This makes the service more targeted to what is its responsibility. All this makes the system more robust as a whole. As the services are loosely coupled, if one services fails, only the functionalists that need that particular service will be affected as opposed to the monolithic, where if anything fails, everything fails. Lastly, it is easier to coordinate the development with several teams when the system uses a micro-services architecture, since every development will be localized in a single application and there will be less conflicts when merging code \parencite{microservicesProsAndCons}.
+\par
+On the other hand, if the initial definition of the responsibility is not well defined, it is much harder to make a structural refactor on a system with this architecture than it is with a monolith. Besides, any interface changes need to be coordinated with the teams that work on the other services. The benefit of being able to deploy independently creates another problem. There needs to be a deployment process for each application. If each service has the need to have its own deployment process, this can affect the complexity of maintaining that process. Testing may also be another problem. If the service is being tested has dependencies of other services, it may be difficult to test it. Either the service has correct data to be accessed directly, or the dependencies are mocked. Finally, as the communication between service is made through the network, this may affect the overall performance of the system \parencite{microservicesProsAndCons}.
+
+As micro-services are a part of \gls{SOA}, the analysis will be kept in this more specific architecture. 
+
+\subsection{Event Sourcing}
+As was already mentioned in section \ref{sub:StateOfTheArt_Architecture_EventSourcing}, Event Sourcing is an architectural pattern where every change on an entity, generates and persists an event. This event will be listened by the interested parties which will or will not do something about it, as its logic dictates.
+\par
+The best thing about this pattern is the preservation of the state history. This element is very useful for certain businesses as banks, where every change may be audited. In Event Sourcing, every change in the state of an entity is kept in record. Using an event driver to communicate asynchronously between services offers a extremely loosely coupled alternative to the traditional \gls{HTTP} requests, since in this case, the service doesn't even know about the existence of the service where it is getting information from \parencite{eventDrivenArchitectureOverview}. In case a business process needs to do several things in response to a change on an entity, the responsibility to trigger those actions are no longer in the source of that change, but on the services that are listening the event. They are the ones responsible to take (or not) action over a certain event.
+\par
+Nonetheless, as it is true for every pattern, this approach also brings problems. Tools for development are still rare and as it is a relatively new alternative, there are not many use cases to take as an example \parencite{prosAndConsEventSourcing}. Also, for development environment, this requires all services that have dependencies to be synchronized, which may bring problems for integration tests.
+
+\subsection{CQRS}
+In a nutshell, \gls{CQRS} is a pattern that segregates the reads and the writes into two different components. This is explained in more detail in section \ref{sub:StateOfTheArt_Architecture_CQRS}.
+\par 
+
+\gls{CQRS} offers great benefits for systems that have a big discrepancy between the number of reads and writes, since, as they are separate components of the system, they can be scaled independently, offering a bigger flexibility to the system. In case of a big concurrency happening in the system, it is also possible to optimize each component for the action that they perform. Also, it offers the possibility to have different representations for read and write operations.
+
+However, using \gls{CQRS} pattern offers several risks. The use of different models may cause inconsistency problems between them. This inconsistency is even bigger for systems that have a big overlap between reads and updates, which is true for most applications. If the application doesn't have a lot of traffic to handle, the usage o \gls{CQRS} may bring more problems than benefits. As this platform is expected to grow, and to have its traffic increasing over time, this is something that may bring some problems. 
+
+\par 
+Its complexity is considerable and it is focused in a specific problem to be solved.
+
+\subsection{Summary}
+\label{sub:ExistentSolutions_Architecture_Summary}
+In the previous points, several benefits and risks were presented regarding each of the possible architectures. The table \ref{tab:Sumary_evaluation_architectures} presents a summary of the relevant pros and cons of each one.
+
+\par
+
+
+\begin{table}[ht]
+\caption{Summary of Pros and Cons of each evaluated architecture}
+\label{tab:Sumary_evaluation_architectures}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Architecture} & \textbf{Pros}                                                                                                                                                      & \textbf{Cons}                                                                                                                                                                                   \\ \hline
+\textbf{Micro-Services}                       & \begin{tabular}[c]{@{}l@{}}Services are Independent\\ Different languages are supported\\ Low coupling\\ Resilience\\ Easy coordination between teams\end{tabular} & \begin{tabular}[c]{@{}l@{}}Need for a clear definition of each service\\ Interface changes need to be coordinated\\ Many deployment processes\\ Testing dependencies\\ Performance\end{tabular} \\ \hline
+\textbf{Event Sourcing}                       & \begin{tabular}[c]{@{}l@{}}State history persistence\\ Extremely low coupling\\ Event triggers all needed processes\end{tabular}                                   & \begin{tabular}[c]{@{}l@{}}Few use cases implemented\\ All dependencies must be synchronized for tests\end{tabular}                                                                             \\ \hline
+\textbf{CQRS}                                 & \begin{tabular}[c]{@{}l@{}}Flexibility on reads/writes\\ Independent scaling and optimization\\ Different representations for reads and writes\end{tabular}        & \begin{tabular}[c]{@{}l@{}}Possible inconsistency problems\\ Complexity\end{tabular}                                                                                                            \\ \hline
+\end{tabular}%
+}
+\end{table}
+\par
+
+Considering the project of this thesis, it was decided, all things considered, to go with the micro-services approach. This decision was based on the wide number of use cases that exist for this architectural style, its proved resilience, which is also a non-functional requirement of this project (check section \ref{sec:non-functional-requirements}). Since there is no requirement for an extremely low coupling and independent scaling between read and write operations, the complexity of \gls{CQRS} and the risk of implementing an architecture with fewer use cases implemented as event sourcing, don't compensate the pros of these architectures, meaning that they are not the best option for the problem we are trying to solve.
+
+
+\section{Software Development Frameworks}
+The purpose of using a Software Development Framework is to have, right out of the box, a series of tools, abstractions and libraries that help on the development process. It is very important to use a framework that fulfils the needs of the project and facilitates its implementation.
+\par
+In the next sections, several possibilities will be analyzed in order to correctly understand which one fits this project the best. The approach to do this will be similar to what was done in the section \ref{sub:architectural_approaches}, weighing the pros and cons of each one.
+
+\subsection{.NET Core}
+.NET Core, as explained in section \ref{sub:StateOfTheArt_Frameworks_NET}, is a cross-platform software framework that provides several tools to create applications for different purposes. 
+\par
+In this project, we aim to develop an e-commerce platform that provides different functionalities for logistics in service provision. Since this framework allows the creation of both \gls{API}s and web applications, it means that it is possible to develop the project in this framework. 
+\par
+The fact of being cross-platform, means that the costs can be reduced since the services can run on Linux, which is a cheaper option when compared to Windows Server. This framework also provides a seamless integration with azure which enables the deploy of services directly from Visual Studio. 
+\par
+The automatic monitoring saves us the time of having to implement the basic monitoring features such as response time, application exceptions and throughput.
+\par
+
+Regarding the issues of this framework (also identified in section \ref{sub:StateOfTheArt_Frameworks_NET}) holds on the licensing costs for the usage of some functionalities in Visual Studio, the low flexibility o Entity Framework, and the fact that Microsoft technology depends a lot on the company's decisions. 
+\par 
+Taking into account that this is an academic project, the existence of academic licenses removes the first issue. On the other hand, the other two cons are still unsolved.
+
+\subsection{Java Spring}
+As presented in section \ref{sub:StateOfTheArt_Frameworks_java}, Java Spring is an open-source software framework that, similarly to .NET Core, allows the development of both web applications and \gls{API}s. Since these are the essential application types of this project, it is also possible to be developed using this framework
+\par
+Java Spring is a very flexible framework that provides tools for several cross-cutting concerns, such authentication, authorization and logging. It also provides support for \gls{AOP}, which enables the implementation of those cross-cutting concerns in a clean way.
+\par
+However, this framework has a high learning curve due to the large number of classes and tools that the developers need to know to develop efficiently, which can make the project more complex which, consequentially, makes the development to take longer. Additionally, there is a lack of security guidelines, as was already mentioned in the section \ref{sub:StateOfTheArt_Frameworks_java}. 
+
+\par
+
+Considering the nature of the project (e-commerce and with a fixed delivery date), these cons are very difficult to overcome.
+
+
+
+\subsection{Node.js}
+Node.js is a software framework that was designed for applications that require real-time updated data, such as video-conference rooms or online gaming, as mentioned in section \ref{sub:StateOfTheArt_Frameworks_Node}. As the last two frameworks, it also allows the development of both \gls{API}s and web applications, which allows the project to be developed in this framework. 
+\par
+This is a very lightweight framework, since it uses non-blocking, event-driven I/O, that provides tools to build fast and scalable applications. It uses JavaScript as its development language, which keeps the learning curve to a minimum for a team that already has to use JavaScript in the front-end, since this language is largely used for front-end purposes.
+\par
+However, since this framework is largely developed by the community, there are many tools that are of poor quality, specially in non-core modules. Also, as Node.js is single threaded, it is not indicated for applications that require heavy \gls{CPU} operations.
+\par
+As this project does not have any requirement regarding real-time data, the biggest advantage of using Node.js ends up having no use. The low learning curve is also a pro that does not apply to our case, since no one in the development team has experience in JavaScript 
+
+
+\subsection{Summary}
+In the previous sections, the pros and cons of each framework and its viability for this project were analyzed. The table \ref{tab:summary_Frameworks} presents a summary of the relevant benefits and risks of each one.
+\par
+
+\par
+For the project of this dissertation, and taking into account the benefits and risks of the three evaluated frameworks, it was decided to go for the .NET Core framework. This decision was mainly for the cross-platform possibility and its reliability. As the main cons are concerning licensing costs and there are student licenses available for free, the downside of this framework is fairly reduced.
+\par
+When compared to the Java Spring, the main problem is the Spring high complexity and learning curve. Also, the lack of security guidelines for this framework is a threat for an e-commerce platform, as this project is. With the existent deadlines, the benefits of this framework doesn't pay off the risks.
+\par
+In the case of Node, its lightweight and fit for micro-services architectures would be a great plus. However, with the problems of the existent tools, and the unfamiliarity by the development team of this technology, it was understood, that .NET Core would be a better fit.
+
+
+\begin{table}[hb]
+\caption{Summary of Pros and Cons of each evaluated software development framework}
+\label{tab:summary_Frameworks}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Framework} & \textbf{Pros}                                                                                                                          & \textbf{Cons}                                                                                                                                \\ \hline
+\textbf{.NET Core}                         & \begin{tabular}[c]{@{}l@{}}Cross-platform\\ Development in Visual Studio\\ Multi-Language\\ Automatic Monitoring\end{tabular}          & \begin{tabular}[c]{@{}l@{}}Licensing Costs\\ Low flexibility of Entity Framework\\ Dependency on Microsoft\end{tabular}                      \\ \hline
+\textbf{Java Spring}                       & \begin{tabular}[c]{@{}l@{}}Flexibility\\ Support for AOP\\ Provides several useful libraries\end{tabular}                              & \begin{tabular}[c]{@{}l@{}}High learning curve\\ Complexity\\ Lack of security guidelines\end{tabular}                                       \\ \hline
+\textbf{Node.js}                           & \begin{tabular}[c]{@{}l@{}}Lightweight\\ Same language as front-end\\ Low learning curve\\ Good option for micro-services\end{tabular} & \begin{tabular}[c]{@{}l@{}}Many tools are of poor quality\\ Callback hell\\ Single-thread\\ Quality of code on non-core modules\end{tabular} \\ \hline
+\end{tabular}%
+}
+\end{table}
+

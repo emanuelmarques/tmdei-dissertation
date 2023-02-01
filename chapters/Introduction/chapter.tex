@@ -1,0 +1,61 @@
+% Chapter 1
+% 
+\chapter{Introduction} % Main chapter title
+\label{chap:Introduction} 
+The first chapter has as its purpose the presentation and contextualization of the subject of this dissertation. Here will be presented the key concepts, indispensable for the understanding of the project. This chapter will start by an overview of the context, followed by a description of the problem and what are the main objectives of this project. Lastly, a structure of the whole document will also be presented.
+
+%-------------------------------------------------------------------------------
+
+\section{Context}
+\label{sec:introduction_context}
+Consumers are looking forward to use products and services through digital platforms. As we look around ourselves, we see people more connected to technology than at any other time in history. If we scale down to just e-commerce, the behavior is very similar, and even more if we check the buying of services. This can be proved by the growth of platforms like Uber and Lyft. In just three years, the number of Uber's daily trips has grown from about 70 thousand daily trips to about 500 thousand, just in New York City. This statistical behavior is very similar to other competitors. This kind of platforms are gaining market share to more traditional business models, such as taxis \parencite{uberStatistics}. As millennials are becoming adults and gaining purchasing power, the openness of society to these platforms is estimated to grow, due to the tech savviness of the millennial generation and since they are one of the core spenders of these platforms \parencite{uberMillenials}.
+\par
+With this market   growth, in 2014, Uber started a new service, also in the transportation business. The objective was to create a food delivery service that would solve the problems that other food delivery platforms already on the market hadn't solved yet. UberEats was released to connect several restaurants that didn't do home delivery and sell them that service on the Uber platform. Unlike their competitors, UberEats would only deliver to a limited area, near the restaurants in the platform \parencite{whyUberStartedUberEats}. 
+\par
+This opened the door to the creation of other  companies dedicated to the delivery of alternative products, like Glovo. Glovo started in 2015 in Barcelona and now is present in 22 countries and provides delivery services of several products like food, gifts, and pharmacy. This is a perfect example of a "Uber like" company that provides different services but with a similar business model.
+\par
+The growth and success of this kind of platforms reveals a great acceptance by the consumers, and the lack of platforms applying this concept to other business areas brings an opportunity for those who are willing to take it.
+
+\section{Problem Statement} 
+\label{sec:chap1_problem_statement} 
+Despite the existence of several companies/platforms that provide logistic services for products using Uber's business model, none is able to make the transportation of goods that will be target of a service. An example of this are laundries that provide home pickup and delivery services.
+\par
+Unlike the case of a simple transportation of goods, there is no platform on the market that enables the customer to make a purchase of a service (a laundry service, for example), enables the \gls{SP} to manage their orders, and provides a network of couriers to make the transportation. A platform like this could be used for different kinds of services: laundry, equipment repair, document delivery/signing, etc. 
+\par
+Due to the nonexistence of a platform with these features, some laundries have already started to provide a service of pickup and delivery at the customer's address. However, since this is being done mostly by the laundry calling the courier and the customer directly, and managing the orders on paper or an excel file, it entails a great amount of time and work for the laundry. Furthermore, this creates a lot of problems for the laundry. There must be at least one person assigning work to the couriers, the couriers are not informed directly of the pickup address and the routes taken by them, might also be inefficient.
+
+\section{Objectives of the Project}
+\label{sec:chap1_project_objectives}
+The purpose of this project is to analyze, design, propose, implement and evaluate a software solution that suppresses the needs presented on section \ref{sec:chap1_problem_statement}. It should provide tools to carry out several essential business operations, like for a customer to place and pay for an order, for an \gls{SP} to manage his/her orders, and for a courier to check currently unassigned orders, assign himself to it and provide information of the pickup and delivery locations. 
+\par 
+It is expected for this solution to be prepared to support different types of services (laundry, mechanics, electronic repairs, etc.). There can also be examples of services with more than a two-leg journey (for example, repairing services which require different specialists that are located in different locations).
+\par
+In this thesis, the focus will be on two leg services (where the goods are sent from the customer, to the \gls{SP} and then sent back to the customer), and having the laundry use case as a \gls{PoC}. This happens due to having a pilot client already on-board. However, as it was already mentioned, the final solution must support multiple \gls{SP}s, with different types of services.
+
+
+\section{Document Structure}
+\label{sec:chap1_document_organization}
+In this section, it will be presented the structure used in this thesis. Providing an overview of the whole document, it will be possible to have an idea of all the aspects that will be approached in this thesis. 
+\par
+This dissertation is divided into \textbf{ten} chapters.
+\par
+The first chapter, \textit{Introduction}, the reader is firstly provided by a brief contextualization, followed by a description of the problem and the objectives to be achieved along the development of the present thesis.
+\par
+The next chapter, \textit{Context}, provides a more detailed explanation of the context of the project. In this case, it provides information regarding the state of e-commerce around the world and, specifically, the application of e-commerce to services.
+\par
+In the third chapter, \textit{State of the Art}, analyzes, as its own name suggests, the literature regarding the state of the art in both existing business solutions that solve similar problems and in technology, presenting several architectures and frameworks that help to design and implement a platform of this degree of complexity. The main purpose of this chapter is to gain inspiration to solve the problem proposed by this dissertation in the best way possible.
+\par
+The \textit{Value Analysis} provides a theoretical approach to present how an opportunity is identified, followed by the appearance of an idea. Here it also analyzes the value of this project for the final customers, the service providers, and the couriers of the platform.
+\par
+The fifth chapter starts the more technical half of this thesis. The chapter \textit{Requirements Engineering} firstly presents the several user groups in the platform and the functional requirements of the project. Lastly, it presents a process view of the buy flow.
+\par
+
+In the next chapter, \textit{Analysis of the Existent Solutions}, a deeper analysis of the architectural approaches and frameworks is made. Here is also presented a comparison between each of them. As an outcome, there is the selection of both architectural style and development framework to be used in this project.
+\par
+The \textit{Design and Architecture} presents the study of possible architectures that respond to the platform needs. In the end of this chapter, there is also a proposal of the architecture to be implemented.
+\par
+The eighth chapter presents details of the \textit{Implementation} of the proposed solution. It starts by presenting and explaining the domain model. This enables the reader to understand the most common concepts of the domain of the platform. Next, it overviews the project structure used in the many components that compose the solution. Afterwards, there is an overview about code quality and the resultant analysis of the code of the solution regarding this matter and, lastly, the user interfaces of the platform are also presented.
+\par
+In the \textit{Evaluation of the Solution} chapter, it is presented the evaluation methodology and its results. Here some metrics are also presented regarding the accomplishment of the proposed objectives.
+\par
+The last chapter, \textit{Conclusion}, presents the achieved results and objectives. Future work, enhancements and improvements are also presented.
